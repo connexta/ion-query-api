@@ -1,1 +1,1 @@
-# Ingest API
+# Search API
