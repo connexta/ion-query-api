@@ -1,0 +1,240 @@
+# /**
+#  * Copyright (c) Connexta
+#  *
+#  * <p>This is free software: you can redistribute it and/or modify it under the terms of the GNU
+#  * Lesser General Public License as published by the Free Software Foundation, either version 3 of
+#  * the License, or any later version.
+#  *
+#  * <p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+#  * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#  * GNU Lesser General Public License for more details. A copy of the GNU Lesser General Public
+#  * License is distributed along with this program and can be found at
+#  * <http://www.gnu.org/licenses/lgpl.html>.
+#  */
+openapi: 3.0.2
+
+info:
+  version: ${project.version}
+  title: ION Search API
+  description: >
+    The Search API is defined to provide clients with the ability to
+    search for products within ION
+  contact:
+    name: Connexta
+  license:
+    name: GNU Lesser General Public License
+    url: 'http://www.gnu.org/licenses/lgpl.html'
+
+servers:
+  - url: ${rest.server.url}
+
+paths:
+  /search:
+    get:
+      summary: Search endpoint for products.
+      description: >
+        A client can use the Search endpoint to query and retrieve
+        data from the server
+      operationId: search
+      tags:
+        - search
+      parameters:
+        - $ref: '#/components/parameters/Accept-Version'
+        - $ref: '#/components/parameters/QueryString'
+      responses:
+        '200':
+          $ref: '#/components/responses/Accepted'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '501':
+          $ref: '#/components/responses/NotImplemented'
+        'default':
+          $ref: '#/components/responses/DefaultError'
+components:
+  responses:
+    Accepted:
+      description: >
+        OK
+      headers:
+        'Content-Version':
+          $ref: '#/components/headers/ContentVersion'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/QueryResult'
+    Unauthorized:
+      description: >
+        The client could not be authenticated.
+      headers:
+        'Content-Version':
+          $ref: '#/components/headers/ContentVersion'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorMessage'
+    Forbidden:
+      description: >
+        The client does not have permission.
+      headers:
+        'Content-Version':
+          $ref: '#/components/headers/ContentVersion'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorMessage'
+    NotImplemented:
+      description: >
+        The requested API version is not supported and therefore not implemented.
+      headers:
+        'Content-Version':
+          $ref: '#/components/headers/ContentVersion'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorMessage'
+    BadRequest:
+      description: >
+        The client message could not understood by the server due to invalid format or syntax.
+      headers:
+        'Content-Version':
+          $ref: '#/components/headers/ContentVersion'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorMessage'
+    DefaultError:
+      description: >
+        Any other possible errors not currently known.
+      headers:
+        'Content-Version':
+          $ref: '#/components/headers/ContentVersion'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorMessage'
+  parameters:
+    Accept-Version:
+      name: Accept-Version
+      in: header
+      description: >
+        The minimal API version that a client using this API will accept
+        responses from.
+      required: true
+      schema:
+        $ref: '#/components/schemas/Version'
+    QueryString:
+      name: q
+      in: query
+      description: >
+        The URL encoded query string to retrieve data.
+      required: true
+      schema:
+        $ref: '#/components/schemas/Query'
+
+  headers:
+    ContentVersion:
+      description: >
+        The API version used by the server to produce the REST message. The server will accept
+        messages for any minor versions prior to this one.
+      required: true
+      schema:
+        $ref: '#/components/schemas/Version'
+      examples:
+        major.minor:
+          value: '1.2'
+          summary: A released minor version
+        major.minor.patch:
+          value: '1.0.3'
+          summary: A patched version
+        dev:
+          value: '1.2.0-SNAPSHOT'
+          summary: A development version
+  schemas:
+    Query:
+      description: Query to execute
+      type: string
+      example: "title equals 'The Room'"
+    QueryResult:
+      description: Query results
+      type: array
+      items:
+        $ref: '#/components/schemas/ResultItems'
+    ResultItems:
+      description: indivudial result items
+      type: object
+      required:
+        - id
+        - location
+        - name
+        - description
+      properties:
+        id:
+          type: string
+          description: The unique ID for this result
+          example: "SS78911789"
+        name:
+          type: string
+          description: The name of the result
+          example: "The Room"
+        description:
+          type: string
+          description: A small description about the resource
+          example: "An electrifying American black comedy about love, passion, betrayal and lies. A true modern classic."
+        location:
+          type: string
+          description: The path to retrieve this resource
+          example: "https://MiS:4420/retrieve/SS78911789"
+    Version:
+      description: Version number.
+      type: string
+      minLength: 3
+      maxLength: 80
+      pattern: '^([1-9]([0-9]+)?)\.(0|([1-9]([0-9]+)?))(\.(0|([1-9]([0-9]+)?))(-.*)?)?$'
+      example: 1.2, 2.4.3, 0.2.5-SNAPSHOT
+    ErrorMessage:
+      description: Error message information.
+      type: object
+      required:
+        - timestamp
+        - path
+        - status
+        - error
+        - message
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+          description: The server time when the error was generated.
+          example: 2019-05-09T14:47:13.101+0000
+        path:
+          type: string
+          description: The path for the REST request that generated this error.
+          example: /search
+        status:
+          type: integer
+          format: int32
+          description: The corresponding HTTP status code.
+          example: 200
+        code:
+          type: integer
+          format: int32
+          description: >
+            An optional more specific code corresponding to the error (specific codes need to be
+            documented).
+        error:
+          type: string
+          description: The corresponding HTTP reason phrase.
+          minLength: 1
+          example: Bad Request
+        message:
+          type: string
+          description: Specific information about the error.
+          minLength: 1
+          example: Validation failed for object='systemInfo'.
+        details:
+          type: array
+          items:
+            type: string
+          description: Optional detailed information about the error.
