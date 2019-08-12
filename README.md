@@ -1,1 +1,1 @@
-# Search API
+# Query API
