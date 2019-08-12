@@ -26,9 +26,18 @@ paths:
   /search:
     get:
       summary: Query endpoint for products.
+      description: >
+        A system can use the Query endpoint to send one or more attachments
+        and a JSON description of a product.
+      operationId: query
+      tags:
+        - query
+      parameters:
+        - $ref: '#/components/parameters/Accept-Version'
+        - $ref: '#/components/parameters/Keyword'
       responses:
-        '202':
-          $ref: '#/components/responses/Accepted'
+        '200':
+          $ref: '#/components/responses/Ok'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '403':
@@ -40,12 +49,16 @@ paths:
 
 components:
   responses:
-    Accepted:
+    Ok:
       description: >
         The ingest request was accepted and ION will begin processing and storing the product.
       headers:
         'Content-Version':
           $ref: '#/components/headers/ContentVersion'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/QueryResults'
     Unauthorized:
       description: >
         The client could not be authenticated.
@@ -106,6 +119,17 @@ components:
       required: true
       schema:
         $ref: '#/components/schemas/Version'
+    Keyword:
+      name: keyword
+      in: query
+      schema:
+        type: string
+        minLength: 1
+        example: "house"
+      description: >
+        The keyword that will be used in the query.
+      required: true
+
   headers:
     ContentVersion:
       description: >
@@ -132,6 +156,16 @@ components:
       maxLength: 80
       pattern: '^([1-9]([0-9]+)?)\.(0|([1-9]([0-9]+)?))(\.(0|([1-9]([0-9]+)?))(-.*)?)?$'
       example: 1.2, 2.4.3, 0.2.5-SNAPSHOT
+    QueryResults:
+      description: >
+        A list of ids that represent all of the products that matched the query.
+      type: object
+      properties:
+        productIds:
+          type: array
+          items:
+            type: string
+            format: uri
     ErrorMessage:
       description: Error message information.
       type: object
