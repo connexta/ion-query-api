@@ -9,10 +9,10 @@ openapi: 3.0.2
 
 info:
   version: ${project.version}
-  title: ION Query API
+  title: Query API
   description: >
     The Query API is defined to provide clients with the ability to
-    query for products in stored in ION.
+    query for stored products.
   contact:
     name: Connexta
   license:
@@ -51,7 +51,7 @@ components:
   responses:
     Ok:
       description: >
-        The ingest request was accepted and ION will begin processing and storing the product.
+        The query request was successful and a list of retrieve URIs is returned.
       headers:
         'Content-Version':
           $ref: '#/components/headers/ContentVersion'
@@ -120,7 +120,7 @@ components:
       schema:
         $ref: '#/components/schemas/Version'
     Keyword:
-      name: keyword
+      name: q
       in: query
       schema:
         type: string
@@ -158,7 +158,7 @@ components:
       example: 1.2, 2.4.3, 0.2.5-SNAPSHOT
     QueryResults:
       description: >
-        A list of ids that represent all of the products that matched the query.
+        A list of retrieve URIs that represent all of the products that matched the query.
       type: object
       properties:
         productIds:
