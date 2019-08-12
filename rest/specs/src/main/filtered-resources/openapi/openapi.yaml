@@ -184,7 +184,7 @@ components:
         path:
           type: string
           description: The path for the REST request that generated this error.
-          example: /ingest
+          example: /search
         status:
           type: integer
           format: int32
