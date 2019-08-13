@@ -16,7 +16,7 @@
         <version>0.1.0-SNAPSHOT</version>
     </parent>
 
-    <name>Query API Rest Spring Stubs</name>
+    <name>Query API :: REST Spring Stubs</name>
 
     <artifactId>query-api-rest-spring-stubs</artifactId>
 

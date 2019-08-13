@@ -27,7 +27,7 @@ paths:
     get:
       summary: Query endpoint for products.
       description: >
-        A system can use the Query endpoint perform a keyword search on a product.
+        A system can use the Query endpoint to perform a keyword search on stored products.
       operationId: query
       tags:
         - query
@@ -109,6 +109,7 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorMessage'
+
   parameters:
     Accept-Version:
       name: Accept-Version
@@ -148,6 +149,7 @@ components:
         dev:
           value: '1.2.0-SNAPSHOT'
           summary: A development version
+
   schemas:
     Version:
       description: Version number.
