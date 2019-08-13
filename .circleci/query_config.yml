@@ -20,7 +20,7 @@ jobs:
             echo "export LINUX_MVN_RANDOM=-Djava.security.egd=file:/dev/./urandom" >> $BASH_ENV
             echo "export COVERAGE_EXCLUSIONS=**/test/**/*,**/itests/**/*,**/*Test*,**/sdk/**/*,**/*.js,**/node_modules/**/*,**/jaxb/**/*,**/wsdl/**/*,**/nces/sws/**/*,**/*.adoc,**/*.txt,**/*.xml" >> $BASH_ENV
             echo "export GITHUB_USERNAME=connexta" >> $BASH_ENV
-            echo "export GITHUB_REPONAME=query-api" >> $BASH_ENV
+            echo "export GITHUB_REPONAME=ion-query-api" >> $BASH_ENV
             echo "export GITHUB_KEY={change-me}" >> $BASH_ENV
             source $BASH_ENV
       - checkout
