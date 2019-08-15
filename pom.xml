@@ -49,9 +49,9 @@
     </properties>
 
     <scm>
-        <url>https://github.com/connexta/query-api</url>
-        <connection>scm:git:https://github.com/connexta/query-api.git</connection>
-        <developerConnection>scm:git:https://github.com/connext/query-api.git
+        <url>https://github.com/connexta/ion-query-api</url>
+        <connection>scm:git:https://github.com/connexta/ion-query-api.git</connection>
+        <developerConnection>scm:git:https://github.com/connext/ion-query-api.git
         </developerConnection>
         <tag>HEAD</tag>
     </scm>
