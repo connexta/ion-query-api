@@ -22,7 +22,7 @@
     <packaging>pom</packaging>
 
     <properties>
-        <rest.server.url>https://ion:1234</rest.server.url>
+        <rest.server.url>https://localhost:9041</rest.server.url>
         <rest.package>${root.package}.rest</rest.package>
         <rest.models.package>${root.package}.rest.models</rest.models.package>
     </properties>
