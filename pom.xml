@@ -7,8 +7,8 @@
     https://www.gnu.org/licenses/lgpl-3.0.html
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" 
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <name>Query API</name>
@@ -57,13 +57,9 @@
     </scm>
 
     <distributionManagement>
-        <snapshotRepository>
-            <id>ion-snapshots</id>
-            <url>http://nexus.phx.connexta.com:8081/nexus/content/repositories/ion-snapshots/</url>
-        </snapshotRepository>
         <repository>
-            <id>ion-releases</id>
-            <url>http://nexus.phx.connexta.com:8081/nexus/content/repositories/ion-releases/</url>
+            <id>releases</id>
+            <url>https://artifacts.codice.org/content/repositories/ion-releases/</url>
         </repository>
     </distributionManagement>
 
@@ -77,11 +73,6 @@
                 <enabled>false</enabled>
             </snapshots>
         </repository>
-        <repository>
-            <id>codice</id>
-            <name>Codice Repository</name>
-            <url>https://artifacts.codice.org/content/groups/public/</url>
-        </repository>
     </repositories>
 
     <pluginRepositories>
@@ -93,11 +84,6 @@
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
-        </pluginRepository>
-        <pluginRepository>
-            <id>codice</id>
-            <name>Codice Repository</name>
-            <url>https://artifacts.codice.org/content/groups/public/</url>
         </pluginRepository>
     </pluginRepositories>
 
