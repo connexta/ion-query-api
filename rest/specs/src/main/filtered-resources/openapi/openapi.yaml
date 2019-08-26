@@ -32,11 +32,21 @@ paths:
       tags:
         - query
       parameters:
-        - $ref: '#/components/parameters/Accept-Version'
         - $ref: '#/components/parameters/Keyword'
       responses:
         '200':
-          $ref: '#/components/responses/Ok'
+          description: >
+            The query request was successful and a list of retrieve URIs is returned in descending order from
+            most matched to least matched.
+          headers:
+            'Content-Version':
+              $ref: '#/components/headers/ContentVersion'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryResults'
+        '400':
+          $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '403':
@@ -48,17 +58,16 @@ paths:
 
 components:
   responses:
-    Ok:
+    BadRequest:
       description: >
-        The query request was successful and a list of retrieve URIs is returned in descending order from
-        most matched to least matched.
+        The client message could not understood by the server due to invalid format or syntax.
       headers:
         'Content-Version':
           $ref: '#/components/headers/ContentVersion'
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/QueryResults'
+            $ref: '#/components/schemas/ErrorMessage'
     Unauthorized:
       description: >
         The client could not be authenticated.
@@ -89,16 +98,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorMessage'
-    BadRequest:
-      description: >
-        The client message could not understood by the server due to invalid format or syntax.
-      headers:
-        'Content-Version':
-          $ref: '#/components/headers/ContentVersion'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorMessage'
     DefaultError:
       description: >
         Any other possible errors not currently known.
@@ -111,21 +110,14 @@ components:
             $ref: '#/components/schemas/ErrorMessage'
 
   parameters:
-    Accept-Version:
-      name: Accept-Version
-      in: header
-      description: >
-        The minimal API version that a client using this API will accept
-        responses from.
-      required: true
-      schema:
-        $ref: '#/components/schemas/Version'
     Keyword:
       name: q
       in: query
       schema:
         type: string
         minLength: 1
+        maxLength: 100
+        pattern: .*\S.*
         example: "house"
       description: >
         The keyword that will be used in the query.
@@ -161,13 +153,10 @@ components:
     QueryResults:
       description: >
         A list of retrieve URIs that represent all of the products that matched the query.
-      type: object
-      properties:
-        productIds:
-          type: array
-          items:
-            type: string
-            format: uri
+      type: array
+      items:
+        type: URI
+      uniqueItems: true
     ErrorMessage:
       description: Error message information.
       type: object
