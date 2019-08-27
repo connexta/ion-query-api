@@ -32,11 +32,12 @@ paths:
       tags:
         - query
       parameters:
-        - $ref: '#/components/parameters/Accept-Version'
         - $ref: '#/components/parameters/Keyword'
       responses:
         '200':
           $ref: '#/components/responses/Ok'
+        '400':
+          $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '403':
@@ -50,8 +51,7 @@ components:
   responses:
     Ok:
       description: >
-        The query request was successful and a list of retrieve URIs is returned in descending order from
-        most matched to least matched.
+        The query request was successful.
       headers:
         'Content-Version':
           $ref: '#/components/headers/ContentVersion'
@@ -59,6 +59,16 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/QueryResults'
+    BadRequest:
+      description: >
+        The client message could not understood by the server due to invalid format or syntax.
+      headers:
+        'Content-Version':
+          $ref: '#/components/headers/ContentVersion'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorMessage'
     Unauthorized:
       description: >
         The client could not be authenticated.
@@ -89,16 +99,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorMessage'
-    BadRequest:
-      description: >
-        The client message could not understood by the server due to invalid format or syntax.
-      headers:
-        'Content-Version':
-          $ref: '#/components/headers/ContentVersion'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorMessage'
     DefaultError:
       description: >
         Any other possible errors not currently known.
@@ -111,21 +111,14 @@ components:
             $ref: '#/components/schemas/ErrorMessage'
 
   parameters:
-    Accept-Version:
-      name: Accept-Version
-      in: header
-      description: >
-        The minimal API version that a client using this API will accept
-        responses from.
-      required: true
-      schema:
-        $ref: '#/components/schemas/Version'
     Keyword:
       name: q
       in: query
       schema:
         type: string
         minLength: 1
+        maxLength: 100
+        pattern: .*\S.*
         example: "house"
       description: >
         The keyword that will be used in the query.
@@ -160,14 +153,12 @@ components:
       example: 1.2, 2.4.3, 0.2.5-SNAPSHOT
     QueryResults:
       description: >
-        A list of retrieve URIs that represent all of the products that matched the query.
-      type: object
-      properties:
-        productIds:
-          type: array
-          items:
-            type: string
-            format: uri
+        A list of retrieve URIs that represent all of the products that matched the query in order from most matched to least matched.
+      type: array
+      items:
+        type: string
+        format: uri
+      uniqueItems: true
     ErrorMessage:
       description: Error message information.
       type: object
