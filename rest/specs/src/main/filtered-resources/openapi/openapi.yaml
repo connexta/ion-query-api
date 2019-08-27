@@ -156,7 +156,8 @@ components:
         A list of retrieve URIs that represent all of the products that matched the query in order from most matched to least matched.
       type: array
       items:
-        type: URI
+        type: string
+        format: uri
       uniqueItems: true
     ErrorMessage:
       description: Error message information.
