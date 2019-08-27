@@ -35,16 +35,7 @@ paths:
         - $ref: '#/components/parameters/Keyword'
       responses:
         '200':
-          description: >
-            The query request was successful and a list of retrieve URIs is returned in descending order from
-            most matched to least matched.
-          headers:
-            'Content-Version':
-              $ref: '#/components/headers/ContentVersion'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/QueryResults'
+          $ref: '#/components/responses/Ok'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -58,6 +49,16 @@ paths:
 
 components:
   responses:
+    Ok:
+      description: >
+        The query request was successful.
+      headers:
+        'Content-Version':
+          $ref: '#/components/headers/ContentVersion'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/QueryResults'
     BadRequest:
       description: >
         The client message could not understood by the server due to invalid format or syntax.
@@ -152,7 +153,7 @@ components:
       example: 1.2, 2.4.3, 0.2.5-SNAPSHOT
     QueryResults:
       description: >
-        A list of retrieve URIs that represent all of the products that matched the query.
+        A list of retrieve URIs that represent all of the products that matched the query in order from most matched to least matched.
       type: array
       items:
         type: URI
