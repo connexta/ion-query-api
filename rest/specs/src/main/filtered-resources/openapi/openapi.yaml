@@ -27,7 +27,7 @@ paths:
     get:
       summary: Query endpoint for products.
       description: >
-        A system can use the Query endpoint to perform a keyword search on stored products.
+        A system can use the Query endpoint to perform a search on stored products.
       operationId: query
       tags:
         - query
