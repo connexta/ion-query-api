@@ -32,7 +32,7 @@ paths:
       tags:
         - query
       parameters:
-        - $ref: '#/components/parameters/Keyword'
+        - $ref: '#/components/parameters/QueryString'
       responses:
         '200':
           $ref: '#/components/responses/Ok'
@@ -111,7 +111,7 @@ components:
             $ref: '#/components/schemas/ErrorMessage'
 
   parameters:
-    Keyword:
+    QueryString:
       name: q
       in: query
       schema:
@@ -119,9 +119,9 @@ components:
         minLength: 1
         maxLength: 100
         pattern: .*\S.*
-        example: "house"
+        example: "contents LIKE 'metadata contents'"
       description: >
-        The keyword that will be used in the query.
+        The query string is used to find products with matching properties.
       required: true
 
   headers:
