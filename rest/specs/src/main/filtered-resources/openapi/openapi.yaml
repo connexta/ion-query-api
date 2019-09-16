@@ -27,12 +27,12 @@ paths:
     get:
       summary: Query endpoint for products.
       description: >
-        A system can use the Query endpoint to perform a keyword search on stored products.
+        A system can use the Query endpoint to perform a search on stored products.
       operationId: query
       tags:
         - query
       parameters:
-        - $ref: '#/components/parameters/Keyword'
+        - $ref: '#/components/parameters/QueryString'
       responses:
         '200':
           $ref: '#/components/responses/Ok'
@@ -111,17 +111,19 @@ components:
             $ref: '#/components/schemas/ErrorMessage'
 
   parameters:
-    Keyword:
+    QueryString:
       name: q
       in: query
       schema:
         type: string
         minLength: 1
-        maxLength: 100
+        maxLength: 5000
         pattern: .*\S.*
-        example: "house"
+        example: "title LIKE 'product title'"
       description: >
-        The keyword that will be used in the query.
+        The OGC CommonQL string that will be used in the query (see the "Annex B - BNF Definition of OGC CommonQL
+        (Normative)" section at http://docs.opengeospatial.org/is/12-168r6/12-168r6.html). Supported attribute names
+        and boolean terms should be defined by the implementing server.
       required: true
 
   headers:
