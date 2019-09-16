@@ -117,11 +117,13 @@ components:
       schema:
         type: string
         minLength: 1
-        maxLength: 100
+        maxLength: 5000
         pattern: .*\S.*
-        example: "contents LIKE 'metadata contents'"
+        example: "title LIKE 'product title'"
       description: >
-        The query string is used to find products with matching properties.
+        The OGC CommonQL string that will be used in the query (see the "Annex B - BNF Definition of OGC CommonQL
+        (Normative)" section at http://docs.opengeospatial.org/is/12-168r6/12-168r6.html). Supported attribute names
+        and boolean terms should be defined by the implementing server.
       required: true
 
   headers:
