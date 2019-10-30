@@ -12,7 +12,7 @@ info:
   title: Query API
   description: >
     The Query API is defined to provide clients with the ability to
-    query for stored IRM metadata.
+    query for stored datasets.
   contact:
     name: Connexta
   license:
@@ -25,9 +25,9 @@ servers:
 paths:
   /search:
     get:
-      summary: Query endpoint for IRM.
+      summary: Query endpoint for datasets.
       description: >
-        A system can use the Query endpoint to perform a search on stored IRM metadata.
+        A system can use the Query endpoint to perform a search on stored IRM.
       operationId: query
       tags:
         - query
@@ -155,7 +155,7 @@ components:
       example: 1.2, 2.4.3, 0.2.5-SNAPSHOT
     QueryResults:
       description: >
-        A list of retrieve URIs that represent all of the IRM metadata that matched the query in order from most matched to least matched.
+        A list of retrieve URIs that represent all of the IRMs that matched the query in order from most matched to least matched.
       type: array
       items:
         type: string
