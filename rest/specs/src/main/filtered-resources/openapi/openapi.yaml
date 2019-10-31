@@ -12,7 +12,7 @@ info:
   title: Query API
   description: >
     The Query API is defined to provide clients with the ability to
-    query for stored products.
+    query for stored datasets.
   contact:
     name: Connexta
   license:
@@ -25,9 +25,9 @@ servers:
 paths:
   /search:
     get:
-      summary: Query endpoint for products.
+      summary: Query endpoint for datasets.
       description: >
-        A system can use the Query endpoint to perform a search on stored products.
+        A system can use the Query endpoint to perform a search on stored IRM.
       operationId: query
       tags:
         - query
@@ -119,7 +119,7 @@ components:
         minLength: 1
         maxLength: 5000
         pattern: .*\S.*
-        example: "title LIKE 'product title'"
+        example: "title LIKE 'IRM title'"
       description: >
         The OGC CommonQL string that will be used in the query (see the "Annex B - BNF Definition of OGC CommonQL
         (Normative)" section at http://docs.opengeospatial.org/is/12-168r6/12-168r6.html). Supported attribute names
@@ -155,7 +155,7 @@ components:
       example: 1.2, 2.4.3, 0.2.5-SNAPSHOT
     QueryResults:
       description: >
-        A list of retrieve URIs that represent all of the products that matched the query in order from most matched to least matched.
+        A list of retrieve URIs that represent all of the IRMs that matched the query in order from most matched to least matched.
       type: array
       items:
         type: string
