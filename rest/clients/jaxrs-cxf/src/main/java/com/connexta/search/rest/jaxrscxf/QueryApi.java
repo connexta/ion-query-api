@@ -40,8 +40,8 @@ public interface QueryApi  {
     @GET
     @Path("/search")
     @Produces({ "application/json" })
-    @ApiOperation(value = "Query endpoint for datasets.", tags={  })
-    @ApiResponses(value = { 
+    @ApiOperation(value = "Query endpoint for datasets.", tags={ "query" })
+    @ApiResponses(value = {
         @ApiResponse(code = 200, message = "The query request was successful. ", response = Result.class, responseContainer = "List"),
         @ApiResponse(code = 400, message = "The client message could not understood by the server due to invalid format or syntax. ", response = ErrorMessage.class),
         @ApiResponse(code = 401, message = "The client could not be authenticated. ", response = ErrorMessage.class),
