@@ -22,12 +22,12 @@
     <artifactId>query-api-rest-jaxrscxf-client-stubs</artifactId>
 
     <dependencies>
-        <dependency>
-            <groupId>com.connexta.search</groupId>
-            <artifactId>query-api-rest-specs</artifactId>
-            <version>${project.version}</version>
-            <type>zip</type>
-        </dependency>
+        <!--<dependency>-->
+        <!--    <groupId>com.connexta.search</groupId>-->
+        <!--    <artifactId>query-api-rest-specs</artifactId>-->
+        <!--    <version>${project.version}</version>-->
+        <!--    <type>zip</type>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>com.connexta.search</groupId>
             <artifactId>query-api-rest-models</artifactId>
@@ -55,51 +55,51 @@
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>unpack-openapi-specs</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>unpack-dependencies</goal>
-                        </goals>
-                        <configuration>
-                            <includeArtifactIds>query-api-rest-specs</includeArtifactIds>
-                            <outputDirectory>${project.build.directory}/openapi</outputDirectory>
-                            <overWriteSnapshots>true</overWriteSnapshots>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.openapitools</groupId>
-                <artifactId>openapi-generator-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <inputSpec>${project.build.directory}/openapi/openapi.yaml</inputSpec>
-                            <generatorName>jaxrs-cxf-client</generatorName>
-                            <configOptions>
-                                <java8>true</java8>
-                                <useTags>true</useTags>
-                                <sortParamsByRequiredFlag>true</sortParamsByRequiredFlag>
-                                <useBeanValidation>true</useBeanValidation>
-                                <sourceFolder>src/main/java</sourceFolder>
-                            </configOptions>
-                            <modelPackage>${rest.models.package}</modelPackage>
-                            <apiPackage>${rest.package}.jaxrscxf</apiPackage>
-                            <generateApiTests>false</generateApiTests>
-                            <generateModels>false</generateModels>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+            <!--<plugin>-->
+            <!--    <groupId>org.apache.maven.plugins</groupId>-->
+            <!--    <artifactId>maven-dependency-plugin</artifactId>-->
+            <!--    <executions>-->
+            <!--        <execution>-->
+            <!--            <id>unpack-openapi-specs</id>-->
+            <!--            <phase>validate</phase>-->
+            <!--            <goals>-->
+            <!--                <goal>unpack-dependencies</goal>-->
+            <!--            </goals>-->
+            <!--            <configuration>-->
+            <!--                <includeArtifactIds>query-api-rest-specs</includeArtifactIds>-->
+            <!--                <outputDirectory>${project.build.directory}/openapi</outputDirectory>-->
+            <!--                <overWriteSnapshots>true</overWriteSnapshots>-->
+            <!--            </configuration>-->
+            <!--        </execution>-->
+            <!--    </executions>-->
+            <!--</plugin>-->
+            <!--<plugin>-->
+            <!--    <groupId>org.openapitools</groupId>-->
+            <!--    <artifactId>openapi-generator-maven-plugin</artifactId>-->
+            <!--    <executions>-->
+            <!--        <execution>-->
+            <!--            <phase>process-resources</phase>-->
+            <!--            <goals>-->
+            <!--                <goal>generate</goal>-->
+            <!--            </goals>-->
+            <!--            <configuration>-->
+            <!--                <inputSpec>${project.build.directory}/openapi/openapi.yaml</inputSpec>-->
+            <!--                <generatorName>jaxrs-cxf-client</generatorName>-->
+            <!--                <configOptions>-->
+            <!--                    <java8>true</java8>-->
+            <!--                    <useTags>true</useTags>-->
+            <!--                    <sortParamsByRequiredFlag>true</sortParamsByRequiredFlag>-->
+            <!--                    <useBeanValidation>true</useBeanValidation>-->
+            <!--                    <sourceFolder>src/main/java</sourceFolder>-->
+            <!--                </configOptions>-->
+            <!--                <modelPackage>${rest.models.package}</modelPackage>-->
+            <!--                <apiPackage>${rest.package}.jaxrscxf</apiPackage>-->
+            <!--                <generateApiTests>false</generateApiTests>-->
+            <!--                <generateModels>false</generateModels>-->
+            <!--            </configuration>-->
+            <!--        </execution>-->
+            <!--    </executions>-->
+            <!--</plugin>-->
             <plugin>
                 <groupId>org.owasp</groupId>
                 <artifactId>dependency-check-maven</artifactId>

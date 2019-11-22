@@ -253,6 +253,7 @@
                         <license.year>2019</license.year>
                     </properties>
                     <includes>
+                        <include>**/*.java</include>
                         <include>**/*.xml</include>
                         <include>**/*.yaml</include>
                     </includes>
