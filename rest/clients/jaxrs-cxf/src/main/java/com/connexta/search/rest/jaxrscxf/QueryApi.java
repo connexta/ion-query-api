@@ -28,7 +28,7 @@ import javax.ws.rs.QueryParam;
  *
  */
 @Path("/")
-@Api(value = "/", description = "")
+@Api(value = "Query", description = "the Query API")
 public interface QueryApi  {
 
     /**
