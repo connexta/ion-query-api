@@ -8,20 +8,23 @@ package com.connexta.search.rest.jaxrscxf;
 
 import com.connexta.search.rest.models.ErrorMessage;
 import com.connexta.search.rest.models.Result;
-
-import java.util.List;
-import javax.ws.rs.*;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponses;
 import io.swagger.annotations.ApiResponse;
-import javax.validation.constraints.*;
+import io.swagger.annotations.ApiResponses;
+import java.util.List;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 
 /**
  * Query API
  *
- * <p>The Query API is defined to provide clients with the ability to query on datasets. 
+ * <p>The Query API is defined to provide clients with the ability to query on datasets.
  *
  */
 @Path("/")
@@ -31,7 +34,7 @@ public interface QueryApi  {
     /**
      * Query endpoint for datasets.
      *
-     * A system can use the Query endpoint to perform a query on datasets. Results are returned in order from most matched to least matched. 
+     * A system can use the Query endpoint to perform a query on datasets. Results are returned in order from most matched to least matched.
      *
      */
     @GET
