@@ -7,18 +7,19 @@
     https://www.gnu.org/licenses/lgpl-3.0.html
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>com.connexta.search</groupId>
-        <artifactId>query-api-rest-servers</artifactId>
+        <artifactId>query-api-rest-clients</artifactId>
         <version>0.4.0-SNAPSHOT</version>
     </parent>
 
-    <name>Query API :: REST Spring Server Stubs</name>
+    <name>Query API :: REST JAX-RS CXF Client Stubs</name>
 
-    <artifactId>query-api-rest-spring-server-stubs</artifactId>
+    <artifactId>query-api-rest-jaxrscxf-client-stubs</artifactId>
 
     <dependencies>
         <dependency>
@@ -45,15 +46,10 @@
             <artifactId>springfox-swagger2</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <exclusions>
-                <!-- jackson-databind-2.9.9.3.jar: CVE-2019-16335, CVE-2019-14540 -->
-                <exclusion>
-                    <groupId>com.fasterxml.jackson.core</groupId>
-                    <artifactId>jackson-databind</artifactId>
-                </exclusion>
-            </exclusions>
+            <groupId>javax.ws.rs</groupId>
+            <artifactId>javax.ws.rs-api</artifactId>
+            <!-- This is the version in DDF. -->
+            <version>2.1</version>
         </dependency>
     </dependencies>
 
@@ -87,28 +83,19 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <inputSpec>${project.build.directory}/openapi/openapi.yaml
-                            </inputSpec>
-                            <generatorName>spring</generatorName>
+                            <inputSpec>${project.build.directory}/openapi/openapi.yaml</inputSpec>
+                            <generatorName>jaxrs-cxf-client</generatorName>
                             <configOptions>
                                 <java8>true</java8>
-                                <dateLibrary>java8</dateLibrary>
                                 <useTags>true</useTags>
-                                <interfaceOnly>true</interfaceOnly>
-                                <useOptional>true</useOptional>
-                                <booleanGetterPrefix>is</booleanGetterPrefix>
                                 <sortParamsByRequiredFlag>true</sortParamsByRequiredFlag>
                                 <useBeanValidation>true</useBeanValidation>
-                                <performBeanValidation>false</performBeanValidation>
                                 <sourceFolder>src/main/java</sourceFolder>
                             </configOptions>
                             <modelPackage>${rest.models.package}</modelPackage>
-                            <apiPackage>${rest.package}.spring</apiPackage>
-                            <generateApis>true</generateApis>
+                            <apiPackage>${rest.package}.jaxrscxf</apiPackage>
                             <generateApiTests>false</generateApiTests>
                             <generateModels>false</generateModels>
-                            <generateSupportingFiles>true</generateSupportingFiles>
-                            <supportingFilesToGenerate>ApiUtil.java</supportingFilesToGenerate>
                         </configuration>
                     </execution>
                 </executions>
