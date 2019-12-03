@@ -31,6 +31,7 @@
         <module>specs</module>
         <module>docs</module>
         <module>models</module>
+        <module>clients</module>
         <module>servers</module>
     </modules>
 </project>
