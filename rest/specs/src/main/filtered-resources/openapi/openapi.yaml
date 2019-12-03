@@ -44,8 +44,6 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '501':
           $ref: '#/components/responses/NotImplemented'
-        'default':
-          $ref: '#/components/responses/DefaultError'
 
 components:
   responses:
@@ -95,16 +93,6 @@ components:
     NotImplemented:
       description: >
         The requested API version is not supported and therefore not implemented.
-      headers:
-        'Content-Version':
-          $ref: '#/components/headers/ContentVersion'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorMessage'
-    DefaultError:
-      description: >
-        Any other possible errors not currently known.
       headers:
         'Content-Version':
           $ref: '#/components/headers/ContentVersion'
