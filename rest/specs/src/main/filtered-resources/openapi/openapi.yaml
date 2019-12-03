@@ -11,8 +11,7 @@ info:
   version: ${project.version}
   title: Query API
   description: >
-    The Query API is defined to provide clients with the ability to
-    query for stored datasets.
+    The Query API is defined to provide clients with the ability to query on datasets.
   contact:
     name: Connexta
   license:
@@ -27,7 +26,8 @@ paths:
     get:
       summary: Query endpoint for datasets.
       description: >
-        A system can use the Query endpoint to perform a search on stored IRM.
+        A system can use the Query endpoint to perform a query on datasets.
+        Results are returned in order from most matched to least matched.
       operationId: query
       tags:
         - query
@@ -56,7 +56,10 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/QueryResults'
+            type: array
+            items:
+              $ref: '#/components/schemas/Result'
+            uniqueItems: true
     BadRequest:
       description: >
         The client message could not understood by the server due to invalid format or syntax.
@@ -141,14 +144,18 @@ components:
       maxLength: 80
       pattern: '^([1-9]([0-9]+)?)\.(0|([1-9]([0-9]+)?))(\.(0|([1-9]([0-9]+)?))(-.*)?)?$'
       example: 1.2, 2.4.3, 0.2.5-SNAPSHOT
-    QueryResults:
-      description: >
-        A list of retrieve URIs that represent all of the IRMs that matched the query in order from most matched to least matched.
-      type: array
-      items:
-        type: string
-        format: uri
-      uniqueItems: true
+    Result:
+      type: object
+      properties:
+        metacardLocation:
+          type: string
+          format: uri
+        irmLocation:
+          type: string
+          format: uri
+      required:
+        - metacardLocation
+        - irmLocation
     ErrorMessage:
       description: Error message information.
       type: object
