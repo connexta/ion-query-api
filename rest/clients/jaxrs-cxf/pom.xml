@@ -48,7 +48,6 @@
         <dependency>
             <groupId>javax.ws.rs</groupId>
             <artifactId>javax.ws.rs-api</artifactId>
-            <!-- This is the version in DDF. -->
             <version>2.1.1</version>
         </dependency>
     </dependencies>
