@@ -1,3 +1,5 @@
+## ion-query-api is now ARCHIVED
+
 # Query API
 [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=connexta/ion-query-api)](https://dependabot.com)
 [![Known Vulnerabilities](https://snyk.io/test/github/connexta/ion-query-api/badge.svg)](https://snyk.io/test/github/connexta/ion-query-api)
